@@ -4,9 +4,9 @@ import axios from 'axios';
 
 const Signup = () => {
   
-  const [userName,setUserName] = useState();
-  const [password,setPassword] = useState();
-  const [user,setUser] = useState(null);
+  const [ userName , setUserName ] = useState(null);
+  const [ password , setPassword ] = useState(null);
+  const [ user , setUser ] = useState(null);
 
   const doSignUp = async () => {
     const data = {
