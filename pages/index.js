@@ -14,7 +14,7 @@ export default function Home({userData}) {
 
   return (
     <div>
-      <NavBar user />
+      <NavBar userData={userData} />
       <h1>Main Page</h1>
     </div>
   )
