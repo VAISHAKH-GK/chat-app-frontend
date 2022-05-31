@@ -1,12 +1,15 @@
 import styles from '../../styles/NavBar.module.css';
-import React,{useEffect} from 'react';
+import React , { useEffect , useContext} from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { UserContext } from '../../stores/userContext';
 
-const NavBar = ({userData}) => {
+const NavBar = () => {
   
   const router = useRouter();
+
+  const { user } = useContext(UserContext);
 
   const logout = () => {
     axios.get("http://localhost:9000/api/logout",{withCredentials:true}).then((responcse) => {
@@ -15,9 +18,9 @@ const NavBar = ({userData}) => {
   }
 
   useEffect(() => {
-    console.log("navbar userData")
-    console.log(userData);
-  },[userData])
+    console.log("navbar");
+    console.log(user);
+  },[user])
 
   return (
     <nav className="navbar navbar-expand-lg bg-dark">
@@ -33,13 +36,13 @@ const NavBar = ({userData}) => {
             </li>
           </ul>
           {
-            (userData)  ?  <button onClick={logout} className="btn btn-success" >Logout</button> : ""
+            (user)  ?  <button onClick={logout} className="btn btn-success" >Logout</button> : ""
           }
           {
-            (!userData) ?  <button onClick={e => router.push("/signup")} className=" me-2 btn btn-success " >SignUp</button> : ""
+            (!user) ?  <button onClick={e => router.push("/signup")} className=" me-2 btn btn-success " >SignUp</button> : ""
           }
           {
-            (!userData) ?  <button onClick={e => router.push("/login")} className="btn btn-success" >Login</button> : ""
+            (!user) ?  <button onClick={e => router.push("/login")} className="btn btn-success" >Login</button> : ""
           }
         </div>
       </div>

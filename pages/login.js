@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import NavBar from '../components/NavBar';
 
-const Login = ({userData}) => {
+const Login = ({isLoggedIn}) => {
   
   const router = useRouter();
 
@@ -12,7 +12,8 @@ const Login = ({userData}) => {
   const [ password , setPassword ] = useState("");
   const [ user , setUser ] = useState(null);
 
-  const dolLogIn = () => {
+  const doLogIn = (e) => {
+    e.preventDefault();
     const data = {
       userName,
       password
@@ -21,53 +22,49 @@ const Login = ({userData}) => {
       if (!response?.data?.success) console.log(response.data.reason);
       else {
         setUser(response.data.user);
-        console.log("hai")
         router.push('/');
       }
     });
   }
 
   useEffect(() => {
-    console.log("useeffect  " + userData);
-    if (userData) router.push("/");
-  },[userData]);
+    if (isLoggedIn) router.push("/");
+  },[]);
 
   return (
     <div>
-      <NavBar userData={userData} />
+      <NavBar />
       <div className={styles.body} >
         <div id={styles.loginform}>
           <h2 id={styles.headerTitle}>Login</h2>
-          <div className={styles.row}>
-            <label>UserName</label>
-            <input type="text" placeholder="UserName" value={ userName } onChange={ e => setUserName(e.target.value) } />
-          </div>
-          <div className={styles.row}>
-            <label>Password</label>
-            <input type="password" placeholder="Password" value={ password } onChange={ e => setPassword(e.target.value) } />
-          </div>
-          <div id={styles.button} className={styles.row}>
-            <button onClick={dolLogIn} >Login</button>
-          </div>
+          <form>
+            <div className={styles.row}>
+              <label>UserName</label>
+              <input type="text" placeholder="UserName" value={ userName } onChange={ e => setUserName(e.target.value) } />
+            </div>
+            <div className={styles.row}>
+              <label>Password</label>
+              <input type="password" placeholder="Password" value={ password } onChange={ e => setPassword(e.target.value) } />
+            </div>
+            <div id={styles.button} className={styles.row}>
+              <button onClick={doLogIn} >Login</button>
+            </div>
+            </form>
         </div>  
       </div>
     </div>
   )
 }
 
-const getServerSideProps = async ({req}) => {
+export const getServerSideProps = async ({req}) => {
   const cookie = req.headers.cookie ?? "";
-  const response = await axios.get("http://localhost:9000/api/getuserdata",{headers:{Cookie:cookie },withCredentials:true});
-  const userData = response.data;
-  console.log(response.data);
-  console.log("login")
-
+  const response = await axios.get("http://localhost:9000/api/isloggedin",{headers:{Cookie:cookie },withCredentials:true});
+  const isLoggedIn = response.data;
   return {
     props:{
-      userData
+      isLoggedIn
     }
   }
 }
 
 export default Login;
-export { getServerSideProps } ;
