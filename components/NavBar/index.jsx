@@ -3,13 +3,13 @@ import React , { useEffect , useContext} from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { UserContext } from '../../stores/userContext';
+import { Context } from '../../stores/Context';
 
 const NavBar = () => {
   
   const router = useRouter();
 
-  const { user , setUser } = useContext(UserContext);
+  const { user , setUser } = useContext(Context);
 
   const logout = () => {
     axios.get("http://localhost:9000/api/user/logout",{withCredentials:true}).then((responcse) => {

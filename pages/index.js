@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect , useContext , useState } from 'react';
 import { useRouter } from 'next/router';
-import { UserContext } from '../stores/userContext';
+import { Context } from '../stores/Context';
 import NavBar from "../components/NavBar";
 import MessageSection from '../components/MessageSection'
 import styles from '../styles/index.module.css';
@@ -10,7 +10,7 @@ import styles from '../styles/index.module.css';
 
 export default function Home({isLoggedIn}) {
   
-  const { user , setUser , users , setUsers } = useContext(UserContext);
+  const { user , setUser , users , setUsers , setDmUser } = useContext(Context);
   const [ loading , setLoading ] = useState(true);
 
   const router = useRouter();
@@ -54,7 +54,7 @@ export default function Home({isLoggedIn}) {
         {
           users.map((value,index) => {
             return (
-                <button type="button" className={`${styles.chat}`} key={index} onClick={() => console.log(value._id)} > {value.userName} </button>
+                <button type="button"  className={`${styles.chat}`} key={index} onClick={() => setDmUser(value)} > {value.userName} </button>
             )
           })
         }
@@ -72,9 +72,9 @@ export default function Home({isLoggedIn}) {
               <section className={`${styles.chatApp}`} >
                 <section className={`${styles.sectionOne}`} >
                   <div className={`${styles.leftMainSection}`} >
-                    <div className={`${styles.heading}`} >
-                      <h1 className={`${styles.userName}`} >{user?.userName}</h1>
-                    </div>
+                    <button className={`${styles.heading}`} onClick={() => setDmUser(null)} >
+                      <h1 >{user?.userName}</h1>
+                    </button>
                     <div className={`${styles.chats}`} >
                       <Chats/>
                     </div>

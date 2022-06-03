@@ -2,7 +2,7 @@ import Head from 'next/head';
 import NavBar from './NavBar';
 import Link from 'next/link';
 import Script from 'next/script';
-import UserContextProvider,{ userContext } from '../stores/userContext';
+import ContextProvider,{ Context } from '../stores/Context';
 
 const Layout = ({children}) => {
 
@@ -14,9 +14,9 @@ const Layout = ({children}) => {
 
         <Script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></Script> 
       </Head>
-      <UserContextProvider>
+      <ContextProvider>
         {children}
-      </UserContextProvider>
+      </ContextProvider>
     </div>
   )
 } 

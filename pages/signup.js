@@ -1,9 +1,8 @@
-import React, { useState , useEffect , useContext } from 'react';
+import React, { useState , useEffect } from 'react';
 import styles from '../styles/signup.module.css';
 import axios from 'axios';  
 import { useRouter } from 'next/router';
 import NavBar from '../components/NavBar';
-import { UserContext } from '../stores/userContext';
 
 const Signup = ({ isLoggedIn }) => {
 
@@ -11,8 +10,6 @@ const Signup = ({ isLoggedIn }) => {
   
   const [ userName , setUserName ] = useState("");
   const [ password , setPassword ] = useState("");
-
-  const { setUser } = useContext(UserContext);
 
   const doSignUp = async (e) => {
     e.preventDefault();

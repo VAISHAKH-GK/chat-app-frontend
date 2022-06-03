@@ -18,7 +18,6 @@
   align-items: center;
   border-radius: 2%;
   background-color: rgba(31, 37, 56 , 0.9);
-  color: white;
 }
 
 .root {
@@ -85,6 +84,8 @@
 }
 
 .heading {
+  border: none;
+  text-decoration: none;
   margin: 0 10px 15px 10px;
   width: 95%;
   display: flex;
@@ -92,4 +93,9 @@
   /* color: white; */
   background-color: #f6bb32;
   border-radius: 5px;
+  opacity: .9;
+}
+
+.heading:hover {
+  opacity: 1;
 }
