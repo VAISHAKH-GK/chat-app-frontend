@@ -12,11 +12,54 @@
 
 
 .header {
-  margin-bottom: 10px;
   width: 100%;
   display: flex;
   justify-content: center;
-  /* color: white; */
+  align-items: center;
   background-color: #f6bb32;
   border-radius: 5px;
+  height: 7%;
 }
+
+.messagesArea {
+  width: 100%;
+  height: 83%
+}
+
+.textInput {
+  border-radius: 5px;
+  height: 72px;
+  background-color: yellow;
+  display: flex;
+  align-items: end;
+  overflow-y: scrollbar;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.textarea, .textarea:focus {
+  margin-left: 3.3%;
+  width: 80%;
+  height: 52px;
+  resize: none;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  overflow-y: scrollbar;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.sendButton {
+  height: 52px;
+  margin-left: 3.3%;
+  margin-right: 3.3%;
+  width: 10%;
+  margin-top: 0;
+  border-radius: 10px;
+}
+
+.textarea::-webkit-scrollbar{
+  display: none;
+}
+
