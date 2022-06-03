@@ -1,4 +1,4 @@
-import styles from '../../styles/ChatSection.module.css';
+import styles from '../../styles/MessageSection.module.css';
 
 export default function ChatSection () {
   

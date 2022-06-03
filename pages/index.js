@@ -3,7 +3,7 @@ import { useEffect , useContext , useState } from 'react';
 import { useRouter } from 'next/router';
 import { UserContext } from '../stores/userContext';
 import NavBar from "../components/NavBar";
-import ChatSection from '../components/ChatSection'
+import MessageSection from '../components/MessageSection'
 import styles from '../styles/index.module.css';
 
 
@@ -81,7 +81,7 @@ export default function Home({isLoggedIn}) {
                   </div>
                 </section>
                 <section className={`${styles.sectionTwo}`} >
-                  <ChatSection/>
+                  <MessageSection/>
                 </section>
               </section>
             </div>
