@@ -1,0 +1,12 @@
+.chatSection {
+  width: 100%;
+  height: 100%;
+}
+
+.main {
+  margin: 0 10px 10px 10px;
+  background-color: rgba(255 , 255 , 255 , 0.8);
+  height: 100%;
+  border-radius: 15px;
+
+}

@@ -9,31 +9,24 @@ const NavBar = () => {
   
   const router = useRouter();
 
-  const { user } = useContext(UserContext);
+  const { user , setUser } = useContext(UserContext);
 
   const logout = () => {
-    axios.get("http://localhost:9000/api/logout",{withCredentials:true}).then((responcse) => {
+    axios.get("http://localhost:9000/api/user/logout",{withCredentials:true}).then((responcse) => {
+      setUser(null);
       router.push("/login");
     });
   }
 
-  useEffect(() => {
-    console.log("navbar");
-    console.log(user);
-  },[user])
-
   return (
     <nav className="navbar navbar-expand-lg bg-dark">
       <div className="container-fluid">
-        <Link className="navbar-brand" href="/">Navbar</Link>
+        <h1 className={`${styles.navbarBrand}`} href="/" >Chat App</h1>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" href="#">Home</Link>
-            </li>
           </ul>
           {
             (user)  ?  <button onClick={logout} className="btn btn-success" >Logout</button> : ""

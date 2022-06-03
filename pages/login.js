@@ -18,7 +18,7 @@ const Login = ({isLoggedIn}) => {
       userName,
       password
     }
-    axios.post("http://localhost:9000/api/login",data,{withCredentials:true}).then((response) => {
+    axios.post("http://localhost:9000/api/user/login",data,{withCredentials:true}).then((response) => {
       if (!response?.data?.success) console.log(response.data.reason);
       else {
         setUser(response.data.user);
@@ -58,7 +58,7 @@ const Login = ({isLoggedIn}) => {
 
 export const getServerSideProps = async ({req}) => {
   const cookie = req.headers.cookie ?? "";
-  const response = await axios.get("http://localhost:9000/api/isloggedin",{headers:{Cookie:cookie },withCredentials:true});
+  const response = await axios.get("http://localhost:9000/api/user/isloggedin",{headers:{Cookie:cookie },withCredentials:true});
   const isLoggedIn = response.data;
   return {
     props:{
