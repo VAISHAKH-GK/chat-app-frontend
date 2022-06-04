@@ -38,6 +38,7 @@
 }
 
 .textarea, .textarea:focus {
+  max-height: 300px;
   margin-left: 3.3%;
   width: 80%;
   height: 52px;

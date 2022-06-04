@@ -1,16 +1,16 @@
-import { useContext,useState } from 'react';
+import { useContext, useState } from 'react';
 import styles from '../../styles/MessageSection.module.css';
-import {Context} from '../../stores/Context';
+import { Context } from '../../stores/Context';
 
 
-export default function ChatSection () {
- 
+export default function ChatSection() {
+
   const { dmUser } = useContext(Context);
 
   const Header = () => {
     return (
       <div className={`${styles.header}`} >
-        <h1>{dmUser?.userName ?? "Home Page"}</h1> 
+        <h1>{dmUser?.userName ?? "Home Page"}</h1>
       </div>
     )
   }
@@ -18,26 +18,26 @@ export default function ChatSection () {
   const MessagesArea = () => {
     return (
       <div className={`${styles.messagesArea}`} >
-      {
-        dmUser ? <h1>Messages</h1> : <h1>Home</h1>
-      }
+        {
+          dmUser ? <h1>Messages</h1> : <h1>Home</h1>
+        }
       </div>
     )
   }
 
   const TextInput = () => {
 
-    const [ message , setMessage ] = useState('');
+    const [message, setMessage] = useState('');
 
     return (
       <div className={`${styles.textInput}`} >
-        <textarea className={`${styles.textarea}`} value={message} onInput={autoHeight} onChange={ e => setMessage(e.target.value)}  placeholder="Type Message ..." ></textarea>
+        <textarea className={`${styles.textarea}`} maxLength="400" value={message} onInput={autoHeight} onChange={e => setMessage(e.target.value)} placeholder="Type Message ..." ></textarea>
         <button className={`btn btn-success ${styles.sendButton}`} onClick={() => setMessage('')} >Send</button>
       </div>
     )
   }
 
-  function autoHeight( e ) {
+  function autoHeight(e) {
     const textarea = e.target;
     textarea.style.height = "auto";
     textarea.style.height = (textarea.scrollHeight) + "px";
@@ -46,11 +46,11 @@ export default function ChatSection () {
   return (
     <div className={`${styles.chatSection}`} >
       <div className={`${styles.main}`} >
-        <Header/>
-        <MessagesArea/>
+        <Header />
+        <MessagesArea />
         {
-          dmUser ? <TextInput/> : ""
-        } 
+          dmUser ? <TextInput /> : ""
+        }
       </div>
     </div>
   )
