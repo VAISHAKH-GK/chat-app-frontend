@@ -28,10 +28,10 @@
 
 .textInput {
   border-radius: 5px;
-  height: 72px;
+  height: 10%;
   background-color: yellow;
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   overflow-y: scrollbar;
   padding-bottom: 10px;
   padding-top: 10px;

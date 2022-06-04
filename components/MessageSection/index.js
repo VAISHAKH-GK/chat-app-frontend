@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext,useState } from 'react';
 import styles from '../../styles/MessageSection.module.css';
 import {Context} from '../../stores/Context';
 
@@ -26,10 +26,13 @@ export default function ChatSection () {
   }
 
   const TextInput = () => {
+
+    const [ message , setMessage ] = useState('');
+
     return (
       <div className={`${styles.textInput}`} >
-        <textarea className={`${styles.textarea}`} onInput={autoHeight}  placeholder="Type Message ..." ></textarea>
-        <button className={`btn btn-success ${styles.sendButton}`}  >Send</button>
+        <textarea className={`${styles.textarea}`} value={message} onInput={autoHeight} onChange={ e => setMessage(e.target.value)}  placeholder="Type Message ..." ></textarea>
+        <button className={`btn btn-success ${styles.sendButton}`} onClick={() => setMessage('')} >Send</button>
       </div>
     )
   }
