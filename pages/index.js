@@ -5,6 +5,7 @@ import { Context } from '../stores/Context';
 import NavBar from "../components/NavBar";
 import MessageSection from '../components/MessageSection'
 import styles from '../styles/index.module.css';
+import io from 'socket.io-client';
 
 
 
@@ -14,6 +15,13 @@ export default function Home({isLoggedIn}) {
   const [ loading , setLoading ] = useState(true);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const socket = io("http://localhost:9000");
+    socket.on("connect",(io) => {
+      console.log("connected to server with socketio");
+    });
+  },[]);
   
   useEffect(() => {
     if (!isLoggedIn) {
