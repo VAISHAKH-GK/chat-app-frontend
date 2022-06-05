@@ -20,21 +20,14 @@ export default function Home({ isLoggedIn }) {
     if (!isLoggedIn) {
       router.push("/login");
     } else if (!user) {
-      axios.get("http://localhost:9000/api/user/getuserdata", { withCredentials: true }).then((response) => {
-        if (!response.data) {
+      Promise.all([axios.get("http://localhost:9000/api/user/getuserdata", { withCredentials: true }),axios.get("http://localhost:9000/api/user/getusers", { withCredentials: true })]).then((response) => {
+        if (!response[0].data) {
           router.push("/login");
-        } else {
-          setUser(response.data);
-          axios.get("http://localhost:9000/api/user/getusers", { withCredentials: true }).then((response) => {
-            if (!response.data) {
-              router.push("/login");
-            } else {
-              setUsers(response.data);
-            }
-            setLoading(false);
-          });
         }
-      });
+        setUser(response[0].data);
+        setUsers(response[1].data);
+        setLoading(false);
+      })
     } else {
       axios.get("http://localhost:9000/api/user/getusers", { withCredentials: true }).then((response) => {
         setUsers(response.data);
