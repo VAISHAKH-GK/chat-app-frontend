@@ -1,12 +1,15 @@
 import { useContext, useState } from 'react';
-import styles from '../../styles/MessageSection.module.css';
-import { Context } from '../../stores/Context';
+import styles from '../../../styles/MessageSection.module.css';
+import { Context } from '../../../stores/Context';
 
 
 export default function ChatSection() {
 
   const { dmUser } = useContext(Context);
-
+  
+  const sendMessage = () => {
+    
+  }
   const Header = () => {
     return (
       <div className={`${styles.header}`} >
