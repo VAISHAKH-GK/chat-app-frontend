@@ -2,11 +2,9 @@ import axios from 'axios';
 import { useEffect, useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Context } from '../stores/Context';
-import NavBar from "../components/NavBar";
-import MessageSection from '../components/ChatSection/MessageSection'
 import styles from '../styles/index.module.css';
 import ChatSection from '../components/ChatSection';
-import { Socket } from '../stores/SocketIo';
+import SocketProvider,{ Socket } from '../stores/SocketIo';
 import io from 'socket.io-client';
 
 
@@ -48,18 +46,6 @@ export default function Home({ isLoggedIn }) {
     });
   }, []);
 
-  useEffect(() => {
-    if (socket) {
-      socket.on("connect", () => {
-        console.log("connected to server using socket io");
-      });
-    }
-  }, [socket]);
-
-  useEffect(() => {
-    console.log("use effect in component");
-  }, []);
-
   const LoadingComponent = () => {
     return (
       <div >
@@ -72,6 +58,7 @@ export default function Home({ isLoggedIn }) {
   const MainComponent = () => {
     return (
       <div>
+        <SocketProvider/>
         <ChatSection />
       </div>
     )

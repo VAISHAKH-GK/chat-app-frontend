@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { Context } from '../../stores/Context';
 import NavBar from '../NavBar';
 import MessageSection from '../ChatSection/MessageSection';

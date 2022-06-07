@@ -1,7 +1,4 @@
-import { useEffect } from 'react';
 import Head from 'next/head';
-import NavBar from './NavBar';
-import Link from 'next/link';
 import Script from 'next/script';
 import ContextProvider, { Context } from '../stores/Context';
 import SocketProvider from '../stores/SocketIo';
