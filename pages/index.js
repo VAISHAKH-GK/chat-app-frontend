@@ -4,15 +4,15 @@ import { useRouter } from 'next/router';
 import { Context } from '../stores/Context';
 import styles from '../styles/index.module.css';
 import ChatSection from '../components/ChatSection';
-import SocketProvider, { Socket } from '../stores/SocketIo';
+import { Socket } from '../stores/SocketIo';
 import io from 'socket.io-client';
-
-
+import { AxiosContext } from '../stores/Axios';
 
 export default function Home({ isLoggedIn }) {
 
   const { user, setUser, setUsers } = useContext(Context);
   const { socket, setSocket } = useContext(Socket);
+  const { getUserData, getUsers } = useContext(AxiosContext);
   const [loading, setLoading] = useState(true);
 
   const router = useRouter();
@@ -21,19 +21,18 @@ export default function Home({ isLoggedIn }) {
     if (!isLoggedIn) {
       router.push("/login");
     } else if (!user) {
-      Promise.all([axios.get("http://localhost:9000/api/user/getuserdata", { withCredentials: true }), axios.get("http://localhost:9000/api/user/getusers", { withCredentials: true })]).then((response) => {
-        if (!response[0].data) {
+      Promise.all([getUserData(), getUsers()]).then((response) => {
+        if (!response[0]) {
           router.push("/login");
         }
-        setUser(response[0].data);
-        setUsers(response[1].data);
+        setUser(response[0]);
+        setUsers(response[1]);
         setLoading(false);
       })
       setSocket(io("http://localhost:9000"));
     } else {
-      axios.get("http://localhost:9000/api/user/getusers", { withCredentials: true }).then((response) => {
-        setUsers(response.data);
-        setLoading(false);
+      getUsers().then((response) => {
+        setUsers(response);
       });
       setSocket(io("http://localhost:9000"));
     }
@@ -52,7 +51,6 @@ export default function Home({ isLoggedIn }) {
     )
   }
 
-
   const MainComponent = () => {
 
     return (
@@ -62,10 +60,7 @@ export default function Home({ isLoggedIn }) {
     )
   }
 
-  let Component = loading ? LoadingComponent : MainComponent;
-
-  useEffect(() => {
-  }, []);
+  const Component = loading ? LoadingComponent : MainComponent;
 
   return (
     <Component />
