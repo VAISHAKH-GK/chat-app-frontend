@@ -1,15 +1,14 @@
 import { useContext, useState } from 'react';
 import styles from '../../../styles/MessageSection.module.css';
 import { Context } from '../../../stores/Context';
+import {Socket} from '../../../stores/SocketIo';
 
 
 export default function ChatSection() {
 
   const { dmUser } = useContext(Context);
+  const {sendMessage} = useContext(Socket);
   
-  const sendMessage = () => {
-    
-  }
   const Header = () => {
     return (
       <div className={`${styles.header}`} >
@@ -35,7 +34,7 @@ export default function ChatSection() {
     return (
       <div className={`${styles.textInput}`} >
         <textarea className={`${styles.textarea}`} maxLength="400" value={message} onInput={autoHeight} onChange={e => setMessage(e.target.value)} placeholder="Type Message ..." ></textarea>
-        <button className={`btn btn-success ${styles.sendButton}`} onClick={() => setMessage('')} >Send</button>
+        <button className={`btn btn-success ${styles.sendButton}`} onClick={() => { sendMessage(message);  setMessage('');}} >Send</button>
       </div>
     )
   }

@@ -1,21 +1,24 @@
 import styles from '../../styles/NavBar.module.css';
-import React , { useEffect , useContext} from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Context } from '../../stores/Context';
+import { Socket } from '../../stores/SocketIo';
 
 const NavBar = () => {
-  
+
   const router = useRouter();
 
-  const { user , setUser } = useContext(Context);
+  const { user, setUser } = useContext(Context);
+  const { socket } = useContext(Socket);
 
   const logout = () => {
-    axios.get("http://localhost:9000/api/user/logout",{withCredentials:true}).then((responcse) => {
+    axios.get("http://localhost:9000/api/user/logout", { withCredentials: true }).then((responcse) => {
       setUser(null);
       router.push("/login");
     });
+    socket.disconnect();
   }
 
   return (
@@ -29,13 +32,13 @@ const NavBar = () => {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           </ul>
           {
-            (user)  ?  <button onClick={logout} className="btn btn-success" >Logout</button> : ""
+            (user) ? <button onClick={logout} className="btn btn-success" >Logout</button> : ""
           }
           {
-            (!user) ?  <button onClick={e => router.push("/signup")} className=" me-2 btn btn-success " >SignUp</button> : ""
+            (!user) ? <button onClick={e => router.push("/signup")} className=" me-2 btn btn-success " >SignUp</button> : ""
           }
           {
-            (!user) ?  <button onClick={e => router.push("/login")} className="btn btn-success" >Login</button> : ""
+            (!user) ? <button onClick={e => router.push("/login")} className="btn btn-success" >Login</button> : ""
           }
         </div>
       </div>
