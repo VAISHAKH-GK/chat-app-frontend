@@ -22,8 +22,12 @@
 }
 
 .messagesArea {
+  padding-top: 10px;
   width: 100%;
-  height: 83%
+  height: 83%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding-bottom:10px;
 }
 
 .textInput {
@@ -64,3 +68,12 @@
   display: none;
 }
 
+.message {
+  background-color: lime;
+  color: red;
+  height: 50px;
+  margin-top: 10px;
+  width: 80%;
+  margin-left: 10%;
+  overflow-wrap: break-word;
+}

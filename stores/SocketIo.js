@@ -1,19 +1,18 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useContext } from 'react';
 
 
 export const Socket = createContext();
 
-
 export default function SocketProvider({ children }) {
 
-  const [socket,setSocket] = useState();
+  const [socket, setSocket] = useState();
 
-  const sendMessage = (message) => {
-    socket.emit("message",message);
+  const sendMessageToServer = (message) => {
+    socket.emit("message", message);
   }
 
   return (
-    <Socket.Provider value={{socket,setSocket,sendMessage}} >
+    <Socket.Provider value={{ socket, setSocket, sendMessageToServer }} >
       {children}
     </Socket.Provider>
   )
