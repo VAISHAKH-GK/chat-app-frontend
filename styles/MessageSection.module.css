@@ -69,11 +69,39 @@
 }
 
 .message {
-  background-color: lime;
-  color: red;
-  height: 50px;
+  background-color: rgba(41, 242, 48, 0.7);
+  border-radius: 20px;
+  color: black;
+  min-height: 50px;
   margin-top: 10px;
   width: 80%;
   margin-left: 10%;
   overflow-wrap: break-word;
+  padding: 10px;
+}
+
+.text {
+  margin-bottom: 0;
+}
+
+.messageHeading {
+  margin-bottom: 0;
+}
+
+.date {
+  color: brown;
+  float: right;
+  margin-top: 3px;
+  margin-left: 10px;
+}
+
+.time {
+  float: right;
+  color: red;
+  margin-top: 3px;
+}
+
+.from {
+  color: purple;
+  /* font-size: 20px; */
 }

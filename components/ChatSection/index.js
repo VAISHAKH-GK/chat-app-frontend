@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Context } from '../../stores/Context';
 import NavBar from '../NavBar';
 import MessageSection from '../ChatSection/MessageSection';
-import styles from '../../styles/index.module.css';
+import styles from '../../styles/ChatSection.module.css';
 
 
 const ChatSection = () => {

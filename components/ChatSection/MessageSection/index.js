@@ -6,7 +6,7 @@ import { Socket } from '../../../stores/SocketIo';
 
 export default function ChatSection() {
 
-  const { dmUser, messages, addMessage } = useContext(Context);
+  const { dmUser, messages, addMessage, user } = useContext(Context);
   const { sendMessageToServer } = useContext(Socket);
 
   const Header = () => {
@@ -31,7 +31,8 @@ export default function ChatSection() {
           !dmUser ? <h1>Home</h1> : messages.map((message, index) => {
             return (
               <div key={index} className={`${styles.message}`}>
-                <p className={`${styles.text}`} >{message}</p>
+                <p className={`${styles.messageHeading}`} > <span className={`${styles.from}`} > {message.from.userName} </span> <span className={`${styles.date}`} >{`${message.date}`}</span> </p>
+                <p className={`${styles.text}`} >{message.msg}</p>
               </div>
             )
           })
@@ -54,16 +55,23 @@ export default function ChatSection() {
 
     const sendMessage = () => {
       if (message) {
-        sendMessageToServer(message);
-        addMessage(message);
+        const date = new Date();
+        const msg = {
+          msg: message,
+          from: user,
+          to: dmUser,
+          date: date.toLocaleString('en-IN', { day: "numeric", year: "numeric", month: "numeric", hour12: true, hour: "numeric", minute: "numeric" })
+        }
+        sendMessageToServer(msg);
+        addMessage(msg);
         setMessage('');
       }
     }
 
     return (
       <div className={`${styles.textInput}`} >
-        <textarea className={`${styles.textarea}`} maxLength="400" value={message} onInput={autoHeight} onChange={e => setMessage(e.target.value)} placeholder="Type Message ..." ></textarea>
-        <button className={`btn btn-success ${styles.sendButton}`} onClick={sendMessage} >Send</button>
+        <textarea className={`${styles.textarea}`} id="textbox" maxLength="400" value={message} onInput={autoHeight} onChange={e => setMessage(e.target.value)} placeholder="Type Message ..." ></textarea>
+        <button type="button" className={`btn btn-success ${styles.sendButton}`} onClick={sendMessage} >Send</button>
       </div>
     )
   }
