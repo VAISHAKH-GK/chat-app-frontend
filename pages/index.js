@@ -10,7 +10,7 @@ import { AxiosContext } from '../stores/Axios';
 
 export default function Home({ isLoggedIn }) {
 
-  const { user, setUser, setUsers } = useContext(Context);
+  const { user, setUser, setUsers , addMessage} = useContext(Context);
   const { socket, setSocket } = useContext(Socket);
   const { getUserData, getUsers } = useContext(AxiosContext);
   const [loading, setLoading] = useState(true);
@@ -28,7 +28,7 @@ export default function Home({ isLoggedIn }) {
         setUser(response[0]);
         setUsers(response[1]);
         setLoading(false);
-      })
+      });
       setSocket(io("http://localhost:9000"));
     } else {
       getUsers().then((response) => {

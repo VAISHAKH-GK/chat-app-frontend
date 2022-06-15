@@ -7,7 +7,14 @@ import { Socket } from '../../../stores/SocketIo';
 export default function ChatSection() {
 
   const { dmUser, messages, addMessage, user } = useContext(Context);
-  const { sendMessageToServer } = useContext(Socket);
+  const { socket, sendMessageToServer } = useContext(Socket);
+
+  // useEffect(() => {
+  //   socket.on(`${user._id}message`, (msg) => {
+  //     console.log("once")
+  //     addMessage(msg);
+  //   });
+  // }, [])
 
   const Header = () => {
     return (
@@ -16,7 +23,6 @@ export default function ChatSection() {
       </div>
     )
   }
-
 
   const MessagesArea = () => {
 
