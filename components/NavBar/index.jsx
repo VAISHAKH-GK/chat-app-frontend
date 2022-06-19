@@ -10,12 +10,12 @@ const NavBar = () => {
 
   const router = useRouter();
 
-  const { user, setUser } = useContext(Context);
+  const { user, deleteDatas } = useContext(Context);
   const { socket } = useContext(Socket);
 
   const logout = () => {
     axios.get("http://localhost:9000/api/user/logout", { withCredentials: true }).then((responcse) => {
-      setUser(null);
+      deleteDatas();
       router.push("/login");
     });
     socket.disconnect();

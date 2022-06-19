@@ -1,5 +1,4 @@
-import { createContext, useState } from 'react';
-
+import { createContext, useEffect, useState, useContext } from 'react';
 
 export const Context = createContext();
 
@@ -15,8 +14,23 @@ export default function ContextProvider({ children }) {
     setMessages((allMessages) => [...allMessages, newMessage]);
   }
 
+  const changeDmUser = (user) => {
+    setDmUser(user);
+  }
+
+  useEffect(() => {
+    setMessages([]);
+  }, [dmUser]);
+
+  const deleteDatas = () => {
+    setUser(null);
+    setUsers([]);
+    setDmUser(null);
+    setMessages([]);
+  }
+
   return (
-    <Context.Provider value={{ user, setUser, users, setUsers, dmUser, setDmUser, messages, setMessages, addMessage }} >
+    <Context.Provider value={{ user, setUser, users, setUsers, dmUser, setDmUser, messages, setMessages, addMessage, changeDmUser, deleteDatas }} >
       {children}
     </Context.Provider>
   )

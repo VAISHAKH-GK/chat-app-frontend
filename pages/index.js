@@ -10,9 +10,9 @@ import { AxiosContext } from '../stores/Axios';
 
 export default function Home({ isLoggedIn }) {
 
-  const { user, setUser, setUsers , addMessage} = useContext(Context);
+  const { user, setUser, setUsers, setMessages, dmUser } = useContext(Context);
   const { socket, setSocket } = useContext(Socket);
-  const { getUserData, getUsers } = useContext(AxiosContext);
+  const { getUserData, getUsers, getMessages } = useContext(AxiosContext);
   const [loading, setLoading] = useState(true);
 
   const router = useRouter();
@@ -42,6 +42,14 @@ export default function Home({ isLoggedIn }) {
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (dmUser) {
+      getMessages(dmUser).then(response => {
+        setMessages(response);
+      });
+    }
+  }, [dmUser]);
 
   const LoadingComponent = () => {
     return (

@@ -9,13 +9,6 @@ export default function ChatSection() {
   const { dmUser, messages, addMessage, user } = useContext(Context);
   const { socket, sendMessageToServer } = useContext(Socket);
 
-  // useEffect(() => {
-  //   socket.on(`${user._id}message`, (msg) => {
-  //     console.log("once")
-  //     addMessage(msg);
-  //   });
-  // }, [])
-
   const Header = () => {
     return (
       <div className={`${styles.header}`} >

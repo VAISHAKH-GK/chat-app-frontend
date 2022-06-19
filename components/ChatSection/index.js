@@ -7,15 +7,18 @@ import styles from '../../styles/ChatSection.module.css';
 
 const ChatSection = () => {
 
-  const { user, users, setDmUser } = useContext(Context);
+  const { user, changeDmUser } = useContext(Context);
 
   const Chats = () => {
+
+    const { users, changeDmUser } = useContext(Context);
+
     return (
       <div>
         {
           users.map((value, index) => {
             return (
-              <button type="button" className={`${styles.chat}`} key={index} onClick={() => setDmUser(value)} > {value.userName} </button>
+              <button type="button" className={`${styles.chat}`} key={index} onClick={() => changeDmUser(value)} > {value.userName} </button>
             )
           })
         }
@@ -32,7 +35,7 @@ const ChatSection = () => {
             <section className={`${styles.chatApp}`} >
               <section className={`${styles.sectionOne}`} >
                 <div className={`${styles.leftMainSection}`} >
-                  <button className={`${styles.heading}`} onClick={() => setDmUser(null)} >
+                  <button className={`${styles.heading}`} onClick={() => changeDmUser(null)} >
                     <h1 >{user?.userName}</h1>
                   </button>
                   <div className={`${styles.chats}`} >
