@@ -2,7 +2,6 @@ import { createContext, useEffect, useState, useContext } from 'react';
 
 export const Context = createContext();
 
-
 export default function ContextProvider({ children }) {
 
   const [user, setUser] = useState(null);

@@ -10,7 +10,7 @@ import { AxiosContext } from '../stores/Axios';
 
 export default function Home({ isLoggedIn }) {
 
-  const { user, setUser, setUsers, setMessages, dmUser, deleteDatas } = useContext(Context);
+  const { user, setUser, setUsers, setMessages, dmUser, deleteDatas, addMessage } = useContext(Context);
   const { socket, setSocket } = useContext(Socket);
   const { getUserData, getUsers, getMessages } = useContext(AxiosContext);
   const [loading, setLoading] = useState(true);
@@ -32,7 +32,9 @@ export default function Home({ isLoggedIn }) {
       setSocket(io("http://localhost:9000"));
     } else {
       getUsers().then((response) => {
-        setUsers(response);
+        if (response) {
+          setUsers(response);
+        }
       });
       setSocket(io("http://localhost:9000"));
     }
@@ -47,17 +49,30 @@ export default function Home({ isLoggedIn }) {
     if (dmUser) {
       getMessages(dmUser).then(response => {
         if (!response) {
-
           axios.delete("http://localhost:9000/api/user/logout", { withCredentials: true }).then((responcse) => {
             deleteDatas();
             router.push("/login");
           });
           socket.disconnect();
+        } else {
+          setMessages(response);
         }
-        setMessages(response);
       });
     }
   }, [dmUser]);
+
+  useEffect(() => {
+    if (socket && user && dmUser) {
+      socket.on(`message${user._id}`, (msg) => {
+        addMessage(msg);
+      });
+    }
+    return (() => {
+      if (socket && user) {
+        socket.off(`message${user._id}`);
+      }
+    });
+  }, [user, socket, dmUser]);
 
   const LoadingComponent = () => {
     return (

@@ -25,7 +25,7 @@ export default function ChatSection() {
     }, [messages]);
 
     return (
-      <div className={`${styles.messagesArea} chat-messages`} onChange={() => console.log("change")} >
+      <div className={`${styles.messagesArea} chat-messages`} >
         {
           !dmUser ? <h1>Home</h1> : messages.map((message, index) => {
             return (
