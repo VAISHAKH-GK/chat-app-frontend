@@ -14,7 +14,7 @@ const NavBar = () => {
   const { socket } = useContext(Socket);
 
   const logout = () => {
-    axios.get("http://localhost:9000/api/user/logout", { withCredentials: true }).then((responcse) => {
+    axios.delete("http://localhost:9000/api/user/logout", { withCredentials: true }).then((responcse) => {
       deleteDatas();
       router.push("/login");
     });

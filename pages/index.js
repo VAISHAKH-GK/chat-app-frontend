@@ -10,7 +10,7 @@ import { AxiosContext } from '../stores/Axios';
 
 export default function Home({ isLoggedIn }) {
 
-  const { user, setUser, setUsers, setMessages, dmUser } = useContext(Context);
+  const { user, setUser, setUsers, setMessages, dmUser, deleteDatas } = useContext(Context);
   const { socket, setSocket } = useContext(Socket);
   const { getUserData, getUsers, getMessages } = useContext(AxiosContext);
   const [loading, setLoading] = useState(true);
@@ -46,6 +46,14 @@ export default function Home({ isLoggedIn }) {
   useEffect(() => {
     if (dmUser) {
       getMessages(dmUser).then(response => {
+        if (!response) {
+
+          axios.delete("http://localhost:9000/api/user/logout", { withCredentials: true }).then((responcse) => {
+            deleteDatas();
+            router.push("/login");
+          });
+          socket.disconnect();
+        }
         setMessages(response);
       });
     }
