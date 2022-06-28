@@ -19,7 +19,7 @@ const Login = ({isLoggedIn}) => {
       password
     }
     axios.post("http://localhost:9000/api/user/login",data,{withCredentials:true}).then((response) => {
-      if (!response?.data?.success) console.log(response.data.reason);
+      if (!response?.data?.success) window.alert(response.data.reason);
       else {
         setUser(response.data.user);
         router.push('/');

@@ -18,7 +18,7 @@ const Signup = ({ isLoggedIn }) => {
       password
     }
     axios.post('http://localhost:9000/api/user/signup',data).then((response) => {
-      if (!response.data.success) return console.log(response.data.reason) ;
+      if (!response.data.success) return window.alert(response.data.reason) ;
       router.push('/login');
     }).catch((err) => {
       console.log(err);
